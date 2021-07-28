@@ -1,0 +1,5 @@
+/**app.wxss**/
+@import 'styles/iconfont.wxss';
+.container {
+    align-items: center;
+} 

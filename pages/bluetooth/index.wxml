@@ -1,0 +1,21 @@
+<view class="container">
+    <view class="control_top">
+        <button type="primary" disabled="{{isBluetoothOpen && isStartScanDevices}}" bind:tap="openBluetoothClick">{{isBluetoothOpen===true?'关闭蓝牙':'打开蓝牙'}}</button>
+        <button type="primary" disabled="{{!isBluetoothOpen}}" bind:tap="scanBluetoothClick">{{isStartScanDevices===true?'停止搜索':'开始搜索'}}</button>
+    </view>
+    <view class="devices_list">
+    <mp-dialog title="打开蓝牙设备失败" buttons="{{errorDialogButtons}}" show="{{errorDialogShow}}" title="{{errorDialogTitle}}" mask="true" mask-closable="false" bindbuttontap="onbindbuttontap"></mp-dialog>
+        <view class="devices_title">
+            <text>当前搜索到设备数量：{{bluetoothList.length}}</text>
+        </view>
+        <scroll-view class="content">
+            <view wx:for="{{bluetoothList}}" wx:key='deviceId'>
+                <view class="deviceItem">
+                    <view >deviceid:{{item.deviceId}}</view>
+                    <view >name:{{item.name}}</view>
+                    <view >resi:{{item.RSSI}}</view>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+</view>
