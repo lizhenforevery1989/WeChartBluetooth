@@ -46,7 +46,6 @@ Page({
             })
         } else {
             wx.openBluetoothAdapter({
-                mode: 'central',
                 success: (res) => {
                     that.setData({
                         isBluetoothOpen: true
@@ -116,8 +115,7 @@ Page({
             return;
         if (this.data.isStartScanDevices == false) {
             wx.startBluetoothDevicesDiscovery({
-                allowDuplicatesKey: false,
-                interval: 0,
+                powerLevel:'high',
                 success: (res) => {
                     wx.onBluetoothDeviceFound(this.onBluetoothDevicesFoundFun);
                     console.log('开始扫描设备打开成功')
@@ -166,14 +164,32 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        wx.authorize({
+            scope: "scope.address", // 权限名称
+            
+            // 请求权限成功后回调
+            success: () => {
+              console.log('scope.address 权限获取成功')
+              // 获取权限成功后的业务
+            },
+          
+            // 请求权限失败后回调
+            fail: () => {
+              console.log('scope.address 权限获取失败')
+              // 获取权限失败后的业务
+            }
+          })
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-
+        wx.startLocationUpdateBackground({
+          success: (res) => {
+              console.log(res)
+          },
+        })
     },
 
     /**
