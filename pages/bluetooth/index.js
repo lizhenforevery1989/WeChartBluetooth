@@ -59,6 +59,13 @@ Page({
 
                          wx.getBluetoothDevices({
                            success: (result) => {
+                                var temp = this.data.bluetoothList;
+                                result.devices.forEach(element => {
+                                    temp.push(element);
+                                });
+                                this.setData({
+                                    bluetoothList: temp
+                                })
                                console.log(result)
                            },
                          })
@@ -110,6 +117,7 @@ Page({
         if (this.data.isStartScanDevices == false) {
             wx.startBluetoothDevicesDiscovery({
                 allowDuplicatesKey: false,
+                interval: 0,
                 success: (res) => {
                     wx.onBluetoothDeviceFound(this.onBluetoothDevicesFoundFun);
                     console.log('开始扫描设备打开成功')
